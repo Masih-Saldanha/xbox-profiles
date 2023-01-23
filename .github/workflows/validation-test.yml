@@ -1,0 +1,25 @@
+name: Validation Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Validation-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Make a new envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_POSTGRES_USER: "postgres"
+          envkey_POSTGRES_PASSWORD: "postgres"
+          envkey_POSTGRES_HOST: "postgres_xbox_profiles_db_test"
+          envkey_POSTGRES_PORT: 5432
+          envkey_POSTGRES_DB: "xbox_profiles_db_test"
+          envkey_DATABASE_URL: "postgresql://postgres:postgres@postgres_xbox_profiles_db_test:5432/xbox_profiles_db_test?schema=public"
+          file_name: .env.test
+      - name: Run Tests
+        run: docker compose -f docker-compose-tests.yml run node_xbox_profiles_app_test npm run test
