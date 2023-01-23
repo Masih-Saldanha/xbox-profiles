@@ -39,6 +39,3 @@ jobs:
 
       - name: Run
         run: docker compose down && docker compose up -d
-
-      - name: Update frontend
-        run: docker cp react_xbox_profiles_app:/app/build ~ubuntu/actions-runner/_work/Xbox-Profiles/Xbox-Profiles/front_end/ && cp -fR ~ubuntu/actions-runner/_work/Xbox-Profiles/Xbox-Profiles/front_end/build/* ~ubuntu/actions-runner/_work/Xbox-Profiles/Xbox-Profiles/html/ && docker cp ~ubuntu/actions-runner/_work/Xbox-Profiles/Xbox-Profiles/html/ react_xbox_profiles_app:/var/www
